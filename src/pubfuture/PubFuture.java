@@ -6,7 +6,7 @@ package pubfuture;
 
 /**
  *
- * @author ferna
+ * @author Fernando Marcos Rodrigues
  */
 public class PubFuture {
 

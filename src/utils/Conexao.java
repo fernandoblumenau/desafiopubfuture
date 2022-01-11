@@ -6,8 +6,9 @@ package utils;
 
 /**
  *
- * @author ferna
- * 
+ * @author Fernando Marcos Rodrigues
+ * Classe para conexão com banco de dados Postgres
+ * Este Condigo fonte foi fornecido pelo professor Marcio Schoenfelder
  * 
  */
 
@@ -18,7 +19,7 @@ import java.sql.SQLException;
 
 public class Conexao {
     
-      public static Connection conectar(){
+    public static Connection conectar(){
         Connection con = null;
         String url = "jdbc:postgresql://localhost:5432/pubfuture";
         String user = "postgres";
@@ -30,5 +31,5 @@ public class Conexao {
             System.out.println("Erro ao conectar com o banco de dados");
         }
         return con;   
-      }         
+    }         
 }
