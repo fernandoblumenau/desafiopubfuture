@@ -16,6 +16,8 @@ package utils;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 
 public class Conexao {
     
@@ -23,7 +25,7 @@ public class Conexao {
         Connection con = null;
         String url = "jdbc:postgresql://localhost:5432/pubfuture";
         String user = "postgres";
-        String password = "admin";
+        String password = "fe044159";
         try {
             Class.forName("org.postgresql.Driver");
             con = DriverManager.getConnection(url, user, password);
@@ -31,5 +33,28 @@ public class Conexao {
             System.out.println("Erro ao conectar com o banco de dados");
         }
         return con;   
-    }         
+    }      
+    public static void closeConnection(Connection connection){
+        try {
+           if (connection!=null) connection.close();
+        } catch (SQLException erro) {
+            throw new RuntimeException("Erro ao fechar com o banco de dados");
+        }
+    }
+      
+    public static void closeConnection(Connection connection, PreparedStatement pstm){
+        try {
+           if (pstm!=null) pstm.close();
+        } catch (SQLException erro) {
+            throw new RuntimeException("Erro ao fechar PreparedStatement");
+        }
+    }
+    
+    public static void closeConnection(Connection connection, PreparedStatement pstm,ResultSet resultSet ){
+        try {
+           if (resultSet!=null) resultSet.close();
+        } catch (SQLException erro) {
+            throw new RuntimeException("Erro ao fechar PreparedStatement");
+        }
+    }
 }
