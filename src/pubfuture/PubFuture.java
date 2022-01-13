@@ -24,6 +24,7 @@ public class PubFuture {
             telaCadastro.setVisible(true);
         } catch (Exception e) {
              e.printStackTrace();
-        }        
+        }       
+        
     }
 }

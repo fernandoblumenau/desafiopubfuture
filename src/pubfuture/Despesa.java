@@ -4,7 +4,16 @@
  */
 package pubfuture;
 
-import java.util.Date;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+
+import java.sql.Date;
+import javax.swing.JOptionPane;
+import utils.Conexao;
 
 /**
  *
@@ -15,8 +24,8 @@ public class Despesa {
     
     private int idConta;
     private Date dataPagto;
+    private String tipoDespesa;
     private Date dataPagtoEsperado;
-    private String descTipoDespesa;
     private Double vlrDespesa;
 
     public int getIdConta() {
@@ -35,20 +44,17 @@ public class Despesa {
         this.dataPagto = dataPagto;
     }
 
-    public Date getDataPagtoEsperado() {
+    public void setTipoDespesa(String tipoDespesa) {
+        this.tipoDespesa = tipoDespesa;
+    }
+
+    
+      public Date getDataPagtoEsperado() {
         return dataPagtoEsperado;
     }
 
     public void setDataPagtoEsperado(Date dataPagtoEsperado) {
         this.dataPagtoEsperado = dataPagtoEsperado;
-    }
-
-    public String getDescTipoDespesa() {
-        return descTipoDespesa;
-    }
-
-    public void setDescTipoDespesa(String descTipoDespesa) {
-        this.descTipoDespesa = descTipoDespesa;
     }
 
     public Double getVlrDespesa() {
@@ -64,8 +70,37 @@ public class Despesa {
  * Metodos para classe Despesas
  */    
 
-    public void cadastrarDespesa() {
-        // TODO implement here
+    public void cadastrarDespesa(Despesa despesa) {
+        Connection  connection = Conexao.conectar();
+        PreparedStatement  pstm =null;
+
+        try {
+            String sql = "INSERT INTO despesa ("
+                    + "idconta,"
+                    + "datapagto,"
+                    + "datapagtoesperado," 
+                    + "tipodespesa,"                    
+                    + "vlrdespesa) VALUES (?,?,?,?,?)";
+            pstm = connection.prepareStatement(sql);
+            
+            System.out.println(sql);
+            pstm.setInt(1, this.idConta);
+            pstm.setDate(2, this.dataPagto);
+            pstm.setDate(3, this.dataPagtoEsperado);
+            pstm.setString(4, this.tipoDespesa);
+            pstm.setDouble(5, this.vlrDespesa);            
+            pstm.execute();
+            JOptionPane.showMessageDialog(null, "Despesa Criada",
+                    "Informação Sistema",JOptionPane.INFORMATION_MESSAGE);            
+            
+        } catch (SQLException erro) {
+            
+            JOptionPane.showMessageDialog(null,"Erro ao inserir despesa no banco"+erro,
+                    "Erro",JOptionPane.ERROR_MESSAGE);            
+        }     
+        finally{
+            Conexao.closeConnection(connection, pstm);
+        }   
     }
 
     public void editarDespesa() {
@@ -83,5 +118,12 @@ public class Despesa {
     public void listarDespesaTotal() {
         // TODO implement here
     }
+
+    @Override
+    public String toString() {
+        return "Despesa{" + "idConta=" + idConta + ", dataPagto=" + dataPagto + ", tipoDespesa=" + tipoDespesa + ", dataPagtoEsperado=" + dataPagtoEsperado + ", vlrDespesa=" + vlrDespesa + '}';
+    }
+    
+    
     
 }

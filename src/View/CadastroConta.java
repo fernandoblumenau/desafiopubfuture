@@ -27,6 +27,8 @@ public class CadastroConta extends javax.swing.JFrame {
     public CadastroConta() {
         initComponents();
         CarregarTabela();
+        DesabilitarJbuttom();
+        DesabilitarJTextField();
     }
 
     /**
@@ -39,6 +41,9 @@ public class CadastroConta extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanelBase = new javax.swing.JPanel();
+        jButtonNovaConta = new javax.swing.JButton();
+        jButtonAtualizarContas = new javax.swing.JButton();
+        jButtonExcluirContas = new javax.swing.JButton();
         jLabelIdConta = new javax.swing.JLabel();
         jLabelTipoConta = new javax.swing.JLabel();
         jLabelInstFinanceira = new javax.swing.JLabel();
@@ -47,23 +52,48 @@ public class CadastroConta extends javax.swing.JFrame {
         jTextFieldTipoConta = new javax.swing.JTextField();
         jTextFieldInstFinanceira = new javax.swing.JTextField();
         jTextFieldVlrSaldo = new javax.swing.JTextField();
-        jSeparator1 = new javax.swing.JSeparator();
         jButtonCadastrarConta = new javax.swing.JButton();
         jScrollPaneContas = new javax.swing.JScrollPane();
         jTableContas = new javax.swing.JTable();
+        jLabel1 = new javax.swing.JLabel();
+        jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("Cadastro de Contas");
+        setTitle("Contas");
 
-        jPanelBase.setBorder(javax.swing.BorderFactory.createTitledBorder("Cadastro"));
+        jPanelBase.setBorder(javax.swing.BorderFactory.createTitledBorder("Edição / Criação de Contas"));
 
-        jLabelIdConta.setText("IdConta");
+        jButtonNovaConta.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/novo.png"))); // NOI18N
+        jButtonNovaConta.setText("Novo");
+        jButtonNovaConta.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonNovaContaActionPerformed(evt);
+            }
+        });
 
-        jLabelTipoConta.setText("tipoConta");
+        jButtonAtualizarContas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/atualizar.png"))); // NOI18N
+        jButtonAtualizarContas.setText("Modificar");
+        jButtonAtualizarContas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonAtualizarContasActionPerformed(evt);
+            }
+        });
 
-        jLabelInstFinanceira.setText("instFinanceira");
+        jButtonExcluirContas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/excluir.png"))); // NOI18N
+        jButtonExcluirContas.setText("Excluir");
+        jButtonExcluirContas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonExcluirContasActionPerformed(evt);
+            }
+        });
 
-        jLabelVlrSaldo.setText("vlrSaldo");
+        jLabelIdConta.setText("Id Conta");
+
+        jLabelTipoConta.setText("Tipo Conta");
+
+        jLabelInstFinanceira.setText("Instituição");
+
+        jLabelVlrSaldo.setText("Saldo");
 
         jTextFieldIdConta.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -78,7 +108,7 @@ public class CadastroConta extends javax.swing.JFrame {
         });
 
         jButtonCadastrarConta.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/salvar.png"))); // NOI18N
-        jButtonCadastrarConta.setText("Cadastrar");
+        jButtonCadastrarConta.setText("Salvar");
         jButtonCadastrarConta.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonCadastrarContaActionPerformed(evt);
@@ -93,7 +123,18 @@ public class CadastroConta extends javax.swing.JFrame {
                 "CodConta", "TipoConta", "Instituição", "Saldo"
             }
         ));
+        jTableContas.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTableContasMouseClicked(evt);
+            }
+        });
         jScrollPaneContas.setViewportView(jTableContas);
+
+        jLabel1.setText("*Selecione na tabela abaixo a conta para Exclusão ou Alteração");
+
+        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/home.png"))); // NOI18N
+        jButton1.setText("Home");
+        jButton1.setActionCommand("Inicio");
 
         javax.swing.GroupLayout jPanelBaseLayout = new javax.swing.GroupLayout(jPanelBase);
         jPanelBase.setLayout(jPanelBaseLayout);
@@ -103,50 +144,65 @@ public class CadastroConta extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanelBaseLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanelBaseLayout.createSequentialGroup()
-                        .addComponent(jScrollPaneContas, javax.swing.GroupLayout.PREFERRED_SIZE, 505, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jSeparator1, javax.swing.GroupLayout.DEFAULT_SIZE, 1, Short.MAX_VALUE)
-                        .addContainerGap())
+                        .addGroup(jPanelBaseLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanelBaseLayout.createSequentialGroup()
+                                .addGroup(jPanelBaseLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jTextFieldIdConta, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabelIdConta))
+                                .addGap(18, 18, 18)
+                                .addGroup(jPanelBaseLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabelTipoConta)
+                                    .addComponent(jTextFieldTipoConta, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(18, 18, 18)
+                                .addGroup(jPanelBaseLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jTextFieldInstFinanceira, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabelInstFinanceira))
+                                .addGap(18, 18, 18)
+                                .addGroup(jPanelBaseLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jTextFieldVlrSaldo, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabelVlrSaldo)))
+                            .addComponent(jLabel1))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(jPanelBaseLayout.createSequentialGroup()
                         .addGroup(jPanelBaseLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabelIdConta)
-                            .addComponent(jLabelTipoConta)
-                            .addComponent(jLabelInstFinanceira)
-                            .addComponent(jLabelVlrSaldo))
-                        .addGap(38, 38, 38)
-                        .addGroup(jPanelBaseLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jTextFieldIdConta)
-                            .addComponent(jTextFieldTipoConta, javax.swing.GroupLayout.DEFAULT_SIZE, 170, Short.MAX_VALUE)
-                            .addComponent(jTextFieldInstFinanceira)
-                            .addComponent(jTextFieldVlrSaldo))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButtonCadastrarConta)
-                        .addGap(43, 43, 43))))
+                            .addGroup(jPanelBaseLayout.createSequentialGroup()
+                                .addComponent(jButtonNovaConta)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jButtonCadastrarConta)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jButtonExcluirContas)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jButtonAtualizarContas)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jButton1))
+                            .addComponent(jScrollPaneContas, javax.swing.GroupLayout.PREFERRED_SIZE, 592, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(0, 8, Short.MAX_VALUE))))
         );
         jPanelBaseLayout.setVerticalGroup(
             jPanelBaseLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanelBaseLayout.createSequentialGroup()
-                .addGap(22, 22, 22)
+                .addGroup(jPanelBaseLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButtonCadastrarConta)
+                    .addComponent(jButtonExcluirContas)
+                    .addComponent(jButtonAtualizarContas)
+                    .addComponent(jButtonNovaConta)
+                    .addComponent(jButton1))
+                .addGap(18, 18, 18)
                 .addGroup(jPanelBaseLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabelIdConta)
-                    .addComponent(jTextFieldIdConta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButtonCadastrarConta))
-                .addGap(18, 18, 18)
-                .addGroup(jPanelBaseLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabelTipoConta)
-                    .addComponent(jTextFieldTipoConta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(jPanelBaseLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabelInstFinanceira)
-                    .addComponent(jTextFieldInstFinanceira, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
+                    .addComponent(jLabelVlrSaldo))
+                .addGap(1, 1, 1)
                 .addGroup(jPanelBaseLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabelVlrSaldo)
+                    .addComponent(jTextFieldIdConta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jTextFieldTipoConta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jTextFieldInstFinanceira, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jTextFieldVlrSaldo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanelBaseLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jScrollPaneContas, javax.swing.GroupLayout.PREFERRED_SIZE, 350, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addComponent(jLabel1)
+                .addGap(23, 23, 23)
+                .addComponent(jScrollPaneContas, javax.swing.GroupLayout.PREFERRED_SIZE, 318, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -158,8 +214,10 @@ public class CadastroConta extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanelBase, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanelBase, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
+
+        jPanelBase.getAccessibleContext().setAccessibleName("Edição / Criação de Contas");
 
         pack();
         setLocationRelativeTo(null);
@@ -174,48 +232,134 @@ public class CadastroConta extends javax.swing.JFrame {
         conta.setVlrSaldo(Double.parseDouble(jTextFieldVlrSaldo.getText()));
         conta.cadastrarConta(conta);
         CarregarTabela();
-        
-    }//GEN-LAST:event_jButtonCadastrarContaActionPerformed
+        LimparjTextField();
 
-    private void jTextFieldIdContaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldIdContaActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTextFieldIdContaActionPerformed
+    }//GEN-LAST:event_jButtonCadastrarContaActionPerformed
 
     private void jTextFieldTipoContaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldTipoContaActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextFieldTipoContaActionPerformed
 
+    private void jTextFieldIdContaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldIdContaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextFieldIdContaActionPerformed
+
+    private void jTableContasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableContasMouseClicked
+        
+        Conta contas = new Conta();
+        Integer index = jTableContas.getSelectedRow();
+        contas= contas.listarContas().get(index);
+        jTextFieldIdConta.setText(String.valueOf(contas.getIdConta()));
+        jTextFieldTipoConta.setText(contas.getTipoConta());
+        jTextFieldInstFinanceira.setText(contas.getInstFinanceira());
+        jTextFieldVlrSaldo.setText(String.valueOf(contas.getVlrSaldo())); 
+        
+        jButtonCadastrarConta.setEnabled(false);
+        jButtonAtualizarContas.setEnabled(true);
+        jButtonExcluirContas.setEnabled(true);
+        HabilitarJTextField();
+        jLabelIdConta.setEnabled(false);
+        jTextFieldIdConta.setEnabled(false);
+        
+    }//GEN-LAST:event_jTableContasMouseClicked
+
+    private void jButtonAtualizarContasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAtualizarContasActionPerformed
+            
+        Conta contas =new Conta();        
+        Integer index = jTableContas.getSelectedRow();
+        
+        contas = contas.listarContas().get(index);
+        contas.setIdConta(Integer.parseInt(jTextFieldIdConta.getText()));
+        contas.setTipoConta(jTextFieldTipoConta.getText());
+        contas.setInstFinanceira(jTextFieldInstFinanceira.getText());
+        contas.setVlrSaldo(Double.parseDouble(jTextFieldVlrSaldo.getText()));
+        
+        contas.editarConta(contas);    
+        CarregarTabela();
+        LimparjTextField();
+    }//GEN-LAST:event_jButtonAtualizarContasActionPerformed
+
+    private void jButtonExcluirContasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonExcluirContasActionPerformed
+        
+        Conta contas =new Conta();        
+        Integer index = jTableContas.getSelectedRow();
+        contas = contas.listarContas().get(index);
+        contas.removerConta(Integer.parseInt(jTextFieldIdConta.getText()));
+        CarregarTabela();
+        LimparjTextField();
+    }//GEN-LAST:event_jButtonExcluirContasActionPerformed
+
+    private void jButtonNovaContaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonNovaContaActionPerformed
+        HabilitarJTextField();
+        DesabilitarJbuttom();
+        jButtonCadastrarConta.setEnabled(true);
+        LimparjTextField();
+        
+    }//GEN-LAST:event_jButtonNovaContaActionPerformed
+
+    private void LimparjTextField(){
+        jTextFieldIdConta.setText("");
+        jTextFieldTipoConta.setText("");
+        jTextFieldInstFinanceira.setText("");
+        jTextFieldVlrSaldo.setText("");
+    }
+    
+    
     private void CarregarTabela(){
         
         DefaultTableModel tabela = (DefaultTableModel) jTableContas.getModel();
         tabela.setNumRows(0);
-        
-        Connection  connection = Conexao.conectar();
-        PreparedStatement  pstm =null;
-        ResultSet resultSet = null;
+      
+        Conta contas = new Conta();
         
         try {
-            String sql = "SELECT *FROM conta;";
-            pstm = connection.prepareStatement(sql);    
-            resultSet = pstm.executeQuery();
-            
-            while (resultSet.next()) { 
-                
+            for(Conta c: contas.listarContas()){
                 tabela.addRow(new Object[]{
-                    resultSet.getInt("idConta"),
-                    resultSet.getString("tipoConta"),
-                    resultSet.getString("instFinanceira"),
-                    resultSet.getString("vlrSaldo")
+                    c.getIdConta(),
+                    c.getTipoConta(),
+                    c.getInstFinanceira(),
+                    c.getVlrSaldo()
                 });
-            }
-        } catch (SQLException erro) {            
+            }                            
+        } catch (Exception erro) {            
             JOptionPane.showMessageDialog(null,"Erro ao Carregar tabela",
                     "Erro",JOptionPane.ERROR_MESSAGE); 
         }  
-        finally{
-            Conexao.closeConnection(connection, pstm, resultSet);
-        }
-
+    }
+    public void DesabilitarJbuttom(){
+        jButtonAtualizarContas.setEnabled(false);
+        jButtonCadastrarConta.setEnabled(false);
+        jButtonExcluirContas.setEnabled(false);
+    }
+    
+    public void DesabilitarJTextField(){
+        jTextFieldIdConta.setEnabled(false);
+        jTextFieldInstFinanceira.setEnabled(false);
+        jTextFieldTipoConta.setEnabled(false);
+        jTextFieldVlrSaldo.setEnabled(false);
+        jLabelIdConta.setEnabled(false);
+        jLabelTipoConta.setEnabled(false);
+        jLabelInstFinanceira.setEnabled(false);
+        jLabelVlrSaldo.setEnabled(false);
+    }
+    
+    public void HabilitarJbuttom(){
+        jButtonAtualizarContas.setEnabled(true);
+        jButtonCadastrarConta.setEnabled(true);
+        jButtonExcluirContas.setEnabled(true);
+    }
+    
+    public void HabilitarJTextField(){
+        jTextFieldIdConta.setEnabled(true);
+        jTextFieldInstFinanceira.setEnabled(true);
+        jTextFieldTipoConta.setEnabled(true);
+        jTextFieldVlrSaldo.setEnabled(true);
+        jLabelIdConta.setEnabled(true);
+        jLabelTipoConta.setEnabled(true);
+        jLabelInstFinanceira.setEnabled(true);
+        jLabelVlrSaldo.setEnabled(true);
+        
+        
     }
     
     /**
@@ -254,14 +398,18 @@ public class CadastroConta extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButtonAtualizarContas;
     private javax.swing.JButton jButtonCadastrarConta;
+    private javax.swing.JButton jButtonExcluirContas;
+    private javax.swing.JButton jButtonNovaConta;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabelIdConta;
     private javax.swing.JLabel jLabelInstFinanceira;
     private javax.swing.JLabel jLabelTipoConta;
     private javax.swing.JLabel jLabelVlrSaldo;
     private javax.swing.JPanel jPanelBase;
     private javax.swing.JScrollPane jScrollPaneContas;
-    private javax.swing.JSeparator jSeparator1;
     private javax.swing.JTable jTableContas;
     private javax.swing.JTextField jTextFieldIdConta;
     private javax.swing.JTextField jTextFieldInstFinanceira;
