@@ -109,7 +109,9 @@ public class Conta {
             pstm.setDouble(3, this.getVlrSaldo());
             pstm.setInt(4, this.getIdConta());
             
-            pstm.execute();
+            System.out.println(pstm);
+            
+            //pstm.execute();
             JOptionPane.showMessageDialog(null, "Alterado com Sucesso",
                     "Informação Sistema",JOptionPane.INFORMATION_MESSAGE);            
                     

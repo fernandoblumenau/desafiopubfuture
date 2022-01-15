@@ -12,6 +12,9 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 
 import java.sql.Date;
+import java.sql.ResultSet;
+import java.util.ArrayList;
+import java.util.List;
 import javax.swing.JOptionPane;
 import utils.Conexao;
 
@@ -57,6 +60,12 @@ public class Despesa {
         this.dataPagtoEsperado = dataPagtoEsperado;
     }
 
+    public String getTipoDespesa() {
+        return tipoDespesa;
+    }
+    
+    
+
     public Double getVlrDespesa() {
         return vlrDespesa;
     }
@@ -65,6 +74,7 @@ public class Despesa {
         this.vlrDespesa = vlrDespesa;
     }
     
+  
 /**
  *
  * Metodos para classe Despesas
@@ -103,16 +113,93 @@ public class Despesa {
         }   
     }
 
-    public void editarDespesa() {
-        // TODO implement here
+    public void editarDespesa(Despesa Despesas) {
+        Connection  connection = Conexao.conectar();
+        PreparedStatement  pstm =null;
+
+        try {
+            String sql = "UPDATE despesa SET "
+                    + "datapagto=?,"
+                    + "datapagtoesperado=?," 
+                    + "tipodespesa=?,"                    
+                    + "vlrdespesa=?"
+                    + "WHERE idconta = ?";
+            pstm = connection.prepareStatement(sql);
+            
+            pstm.setDate(1, this.dataPagto);
+            pstm.setDate(2, this.dataPagtoEsperado);
+            pstm.setString(3, this.tipoDespesa);
+            pstm.setDouble(4, this.vlrDespesa);
+            pstm.setInt(5, this.idConta);
+            pstm.execute();        
+            JOptionPane.showMessageDialog(null, "Alterado com Sucesso",
+                    "Informação Sistema",JOptionPane.INFORMATION_MESSAGE);            
+                    
+               
+        } catch (SQLException erro) {
+            
+            JOptionPane.showMessageDialog(null,"Erro ao alterar dados de despesa"+erro
+                    + " no banco","Erro",
+                    JOptionPane.ERROR_MESSAGE);   
+        }  
+        finally{
+            Conexao.closeConnection(connection, pstm);
+        }        
     }
 
-    public void removerDespesa() {
-        // TODO implement here
+    public  void removerDespesa(int idConta) {
+        Connection  connection = Conexao.conectar();
+        PreparedStatement  pstm =null;
+        
+        try {
+            String sql = "DELETE FROM despesa WHERE idconta=?";
+            pstm = connection.prepareStatement(sql);
+            
+            pstm.setInt(1, idConta);
+            pstm.execute();
+            JOptionPane.showMessageDialog(null, "Removido com Sucesso",
+                    "Informação Sistema",JOptionPane.INFORMATION_MESSAGE);
+            
+        } catch (SQLException erro) {            
+            JOptionPane.showMessageDialog(null,"Erro ao Deleta Despesas no banco",
+                    "Erro",JOptionPane.ERROR_MESSAGE); 
+        }
+        finally{
+            Conexao.closeConnection(connection, pstm);
+        }
     }
 
-    public void listarDespesa() {
-        // TODO implement here
+    public List<Despesa> listarDespesa() {
+                
+        List<Despesa> despesas = new ArrayList<>();
+        Connection  connection = Conexao.conectar();
+        PreparedStatement  pstm =null;
+        ResultSet resultSet = null;
+        
+        try {
+            String sql = "SELECT *FROM despesa;";
+            pstm = connection.prepareStatement(sql);    
+            resultSet = pstm.executeQuery();
+            
+            while (resultSet.next()) { 
+                
+                Despesa objDespesa = new Despesa();
+                objDespesa.setIdConta(resultSet.getInt("idConta"));
+                objDespesa.setDataPagto(resultSet.getDate("datapagto"));
+                objDespesa.setDataPagtoEsperado(resultSet.getDate("datapagtoesperado"));
+                objDespesa.setTipoDespesa(resultSet.getString("tipodespesa"));
+                objDespesa.setVlrDespesa(resultSet.getDouble("vlrdespesa"));
+                despesas.add(objDespesa);         
+            }
+        } catch (SQLException erro) {            
+            JOptionPane.showMessageDialog(null,"Erro de Leitura do Banco"+erro,
+                    "Erro",JOptionPane.ERROR_MESSAGE); 
+        }  
+        finally{
+            Conexao.closeConnection(connection, pstm, resultSet);
+        }
+        return despesas;
+
     }
 
     public void listarDespesaTotal() {
@@ -123,7 +210,8 @@ public class Despesa {
     public String toString() {
         return "Despesa{" + "idConta=" + idConta + ", dataPagto=" + dataPagto + ", tipoDespesa=" + tipoDespesa + ", dataPagtoEsperado=" + dataPagtoEsperado + ", vlrDespesa=" + vlrDespesa + '}';
     }
-    
+
+
     
     
 }

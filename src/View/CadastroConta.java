@@ -277,6 +277,8 @@ public class CadastroConta extends javax.swing.JFrame {
         contas.editarConta(contas);    
         CarregarTabela();
         LimparjTextField();
+        DesabilitarJTextField();
+        DesabilitarJbuttom();
     }//GEN-LAST:event_jButtonAtualizarContasActionPerformed
 
     private void jButtonExcluirContasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonExcluirContasActionPerformed
@@ -287,6 +289,8 @@ public class CadastroConta extends javax.swing.JFrame {
         contas.removerConta(Integer.parseInt(jTextFieldIdConta.getText()));
         CarregarTabela();
         LimparjTextField();
+        DesabilitarJTextField();
+        DesabilitarJbuttom();
     }//GEN-LAST:event_jButtonExcluirContasActionPerformed
 
     private void jButtonNovaContaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonNovaContaActionPerformed

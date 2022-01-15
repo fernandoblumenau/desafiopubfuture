@@ -42,9 +42,6 @@
           </Border>
         </Property>
       </Properties>
-      <AccessibilityProperties>
-        <Property name="AccessibleContext.accessibleName" type="java.lang.String" value="Edi&#xe7;&#xe3;o / Cria&#xe7;&#xe3;o de Contas"/>
-      </AccessibilityProperties>
 
       <Layout>
         <DimensionLayout dim="0">
