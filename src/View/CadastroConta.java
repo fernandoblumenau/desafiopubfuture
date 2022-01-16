@@ -7,8 +7,8 @@ package View;
 import java.sql.SQLException;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
-import pubfuture.Conta;
-import utils.Conexao;
+import Model.Conta;
+import Controller.Conexao;
 import java.sql.ResultSet;
 import java.sql.PreparedStatement;
 import java.sql.Connection;
@@ -17,7 +17,8 @@ import java.util.List;
 
 /**
  *
- * @author ferna
+ * @author Fernando Marcos Rodrigues
+ * Tela Edição de Contas
  */
 public class CadastroConta extends javax.swing.JFrame {
 
@@ -229,7 +230,7 @@ public class CadastroConta extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButtonCadastrarContaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCadastrarContaActionPerformed
-        // TODO add your handling code here:
+        
         Conta conta = new Conta();
         conta.setIdConta(Integer.parseInt(jTextFieldIdConta.getText()));
         conta.setInstFinanceira(jTextFieldInstFinanceira.getText());
@@ -238,7 +239,6 @@ public class CadastroConta extends javax.swing.JFrame {
         conta.cadastrarConta(conta);
         CarregarTabela();
         LimparjTextField();
-
     }//GEN-LAST:event_jButtonCadastrarContaActionPerformed
 
     private void jTextFieldTipoContaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldTipoContaActionPerformed
@@ -264,8 +264,7 @@ public class CadastroConta extends javax.swing.JFrame {
         jButtonExcluirContas.setEnabled(true);
         HabilitarJTextField();
         jLabelIdConta.setEnabled(false);
-        jTextFieldIdConta.setEnabled(false);
-        
+        jTextFieldIdConta.setEnabled(false);        
     }//GEN-LAST:event_jTableContasMouseClicked
 
     private void jButtonAtualizarContasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAtualizarContasActionPerformed
@@ -299,11 +298,11 @@ public class CadastroConta extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonExcluirContasActionPerformed
 
     private void jButtonNovaContaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonNovaContaActionPerformed
+       
         HabilitarJTextField();
         DesabilitarJbuttom();
         jButtonCadastrarConta.setEnabled(true);
-        LimparjTextField();
-        
+        LimparjTextField();        
     }//GEN-LAST:event_jButtonNovaContaActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
@@ -380,8 +379,6 @@ public class CadastroConta extends javax.swing.JFrame {
         jLabelTipoConta.setEnabled(true);
         jLabelInstFinanceira.setEnabled(true);
         jLabelVlrSaldo.setEnabled(true);
-        
-        
     }
     
     /**

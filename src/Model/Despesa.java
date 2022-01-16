@@ -2,30 +2,35 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package pubfuture;
+package Model;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+
 import java.sql.Date;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
-import utils.Conexao;
+import Controller.Conexao;
 
 /**
  *
  * @author Fernando Marcos Rodrigues
+ * Classe Java Com todos os metodos da entidade Despesa
  */
-public class Receita {
+public class Despesa {
+    
     
     private int idConta;
-    private String tipoReceita;
-    private Date dataRecebimento;
-    private Date dataRecebEsperado;
-    private Double vlrReceita;
-    private String descReceita;
+    private Date dataPagto;
+    private String tipoDespesa;
+    private Date dataPagtoEsperado;
+    private Double vlrDespesa;
 
     public int getIdConta() {
         return idConta;
@@ -35,132 +40,115 @@ public class Receita {
         this.idConta = idConta;
     }
 
-    public String getTipoReceita() {
-        return tipoReceita;
+    public Date getDataPagto() {
+        return dataPagto;
     }
 
-    public void setTipoReceita(String tipoReceita) {
-        this.tipoReceita = tipoReceita;
+    public void setDataPagto(Date dataPagto) {
+        this.dataPagto = dataPagto;
     }
 
+    public void setTipoDespesa(String tipoDespesa) {
+        this.tipoDespesa = tipoDespesa;
+    }
     
-    public Date getDataRecebimento() {
-        return dataRecebimento;
+    public Date getDataPagtoEsperado() {
+        return dataPagtoEsperado;
     }
 
-    public void setDataRecebimento(Date dataRecebimento) {
-        this.dataRecebimento = dataRecebimento;
+    public void setDataPagtoEsperado(Date dataPagtoEsperado) {
+        this.dataPagtoEsperado = dataPagtoEsperado;
     }
 
-
-    public Date getDataRecebEsperado() {
-        return dataRecebEsperado;
+    public String getTipoDespesa() {
+        return tipoDespesa;
+    }
+        
+    public Double getVlrDespesa() {
+        return vlrDespesa;
     }
 
-    public void setDataRecebEsperado(Date dataRecebEsperado) {
-        this.dataRecebEsperado = dataRecebEsperado;
+    public void setVlrDespesa(Double vlrDespesa) {
+        this.vlrDespesa = vlrDespesa;
     }
-
-    public Double getVlrReceita() {
-        return vlrReceita;
-    }
-
-    public void setVlrReceita(Double vlrReceita) {
-        this.vlrReceita = vlrReceita;
-    }
-
-    public String getDescReceita() {
-        return descReceita;
-    }
-
-    public void setDescReceita(String descReceita) {
-        this.descReceita = descReceita;
-    }
-           
+    
+  
 /**
  *
- * Metodos para classe Receitas
- */
+ * Inicio da Declaração dos Metodos
+ */    
 
-    public void cadastrarReceita(Receita receitas) {
+    public void cadastrarDespesa(Despesa despesa) {
         Connection  connection = Conexao.conectar();
         PreparedStatement  pstm =null;
 
         try {
-            String sql = "INSERT INTO receita ("
+            String sql = "INSERT INTO despesa ("
                     + "idconta,"
-                    + "tiporeceita,"
-                    + "datarecebimento," 
-                    + "datarecebesperado," 
-                    + "descreceita,"
-                    + "vlrreceita) VALUES (?,?,?,?,?,?)";
+                    + "datapagto,"
+                    + "datapagtoesperado," 
+                    + "tipodespesa,"                    
+                    + "vlrdespesa) VALUES (?,?,?,?,?)";
             pstm = connection.prepareStatement(sql);
             
             System.out.println(sql);
             pstm.setInt(1, this.idConta);
-            pstm.setString(2, this.tipoReceita);
-            pstm.setDate(3, this.dataRecebimento);
-            pstm.setDate(4, this.dataRecebEsperado);
-            pstm.setString(5, this.descReceita);
-            pstm.setDouble(6, this.vlrReceita);
+            pstm.setDate(2, this.dataPagto);
+            pstm.setDate(3, this.dataPagtoEsperado);
+            pstm.setString(4, this.tipoDespesa);
+            pstm.setDouble(5, this.vlrDespesa);            
             pstm.execute();
-            JOptionPane.showMessageDialog(null, "Receita Criada",
+            JOptionPane.showMessageDialog(null, "Despesa Criada",
                     "Informação Sistema",JOptionPane.INFORMATION_MESSAGE);            
             
         } catch (SQLException erro) {
             
-            JOptionPane.showMessageDialog(null,"Erro ao inserir Receita no banco"+erro,
+            JOptionPane.showMessageDialog(null,"Erro ao inserir despesa no banco"+erro,
                     "Erro",JOptionPane.ERROR_MESSAGE);            
         }     
         finally{
             Conexao.closeConnection(connection, pstm);
         }   
-
     }
 
-    public void editarReceita(Receita receitas) {
+    public void editarDespesa(Despesa Despesas) {
         Connection  connection = Conexao.conectar();
         PreparedStatement  pstm =null;
 
         try {
-            String sql = "UPDATE receita SET "
-                    + "tiporeceita=?,"
-                    + "datarecebimento=?," 
-                    + "datarecebesperado=?,"                    
-                    + "descreceita=?,"
-                    + "vlrreceita=?"
+            String sql = "UPDATE despesa SET "
+                    + "datapagto=?,"
+                    + "datapagtoesperado=?," 
+                    + "tipodespesa=?,"                    
+                    + "vlrdespesa=?"
                     + "WHERE idconta = ?";
             pstm = connection.prepareStatement(sql);
             
-            System.out.println(this.descReceita);
-            
-            pstm.setString(1, this.tipoReceita);
-            pstm.setDate(2, this.dataRecebimento);
-            pstm.setDate(3, this.dataRecebEsperado);
-            pstm.setString(4, this.descReceita);
-            pstm.setDouble(5,vlrReceita);
-            pstm.setInt(6, this.idConta);
+            pstm.setDate(1, this.dataPagto);
+            pstm.setDate(2, this.dataPagtoEsperado);
+            pstm.setString(3, this.tipoDespesa);
+            pstm.setDouble(4, this.vlrDespesa);
+            pstm.setInt(5, this.idConta);
             pstm.execute();        
             JOptionPane.showMessageDialog(null, "Alterado com Sucesso",
                     "Informação Sistema",JOptionPane.INFORMATION_MESSAGE);                                               
         } catch (SQLException erro) {
             
-            JOptionPane.showMessageDialog(null,"Erro ao alterar dados de Receita"+erro
+            JOptionPane.showMessageDialog(null,"Erro ao alterar dados de despesa"+erro
                     + " no banco","Erro",
                     JOptionPane.ERROR_MESSAGE);   
         }  
         finally{
             Conexao.closeConnection(connection, pstm);
         }        
-
     }
 
-    public void removerReceita(int idconta) {
+    public  void removerDespesa(int idConta) {
         Connection  connection = Conexao.conectar();
         PreparedStatement  pstm =null;
         
         try {
-            String sql = "DELETE FROM receita WHERE idconta=?";
+            String sql = "DELETE FROM despesa WHERE idconta=?";
             pstm = connection.prepareStatement(sql);
             
             pstm.setInt(1, idConta);
@@ -169,37 +157,35 @@ public class Receita {
                     "Informação Sistema",JOptionPane.INFORMATION_MESSAGE);
             
         } catch (SQLException erro) {            
-            JOptionPane.showMessageDialog(null,"Erro ao Deleta Receita no banco",
+            JOptionPane.showMessageDialog(null,"Erro ao Deleta Despesas no banco",
                     "Erro",JOptionPane.ERROR_MESSAGE); 
         }
         finally{
             Conexao.closeConnection(connection, pstm);
         }
-        
     }
 
-    public List<Receita> listarReceita() {
-               
-        List<Receita> receita = new ArrayList<>();
+    public List<Despesa> listarDespesa() {
+                
+        List<Despesa> despesas = new ArrayList<>();
         Connection  connection = Conexao.conectar();
         PreparedStatement  pstm =null;
         ResultSet resultSet = null;
         
         try {
-            String sql = "SELECT *FROM receita;";
+            String sql = "SELECT *FROM despesa;";
             pstm = connection.prepareStatement(sql);    
             resultSet = pstm.executeQuery();
             
             while (resultSet.next()) { 
                 
-                Receita objReceita = new Receita();
-                objReceita.setIdConta(resultSet.getInt("idConta"));                
-                objReceita.setTipoReceita(resultSet.getString("tiporeceita"));
-                objReceita.setDataRecebimento(resultSet.getDate("datarecebimento"));
-                objReceita.setDataRecebEsperado(resultSet.getDate("datarecebesperado"));               
-                objReceita.setDescReceita(resultSet.getString("descreceita"));
-                objReceita.setVlrReceita(resultSet.getDouble("vlrreceita"));
-                receita.add(objReceita);         
+                Despesa objDespesa = new Despesa();
+                objDespesa.setIdConta(resultSet.getInt("idConta"));
+                objDespesa.setDataPagto(resultSet.getDate("datapagto"));
+                objDespesa.setDataPagtoEsperado(resultSet.getDate("datapagtoesperado"));
+                objDespesa.setTipoDespesa(resultSet.getString("tipodespesa"));
+                objDespesa.setVlrDespesa(resultSet.getDouble("vlrdespesa"));
+                despesas.add(objDespesa);         
             }
         } catch (SQLException erro) {            
             JOptionPane.showMessageDialog(null,"Erro de Leitura do Banco"+erro,
@@ -208,22 +194,21 @@ public class Receita {
         finally{
             Conexao.closeConnection(connection, pstm, resultSet);
         }
-        return receita;
- 
+        return despesas;
     }
 
-    public Double listarReceitaTotal() {
-        Double receita=0d;
+    public Double listarDespesaTotal() {
+        Double despesa=0d;
         Connection  connection = Conexao.conectar();
         PreparedStatement  pstm =null;
         ResultSet resultSet = null;
         
         try {
-            String sql = "SELECT SUM(vlrreceita)soma FROM receita;";
+            String sql = "SELECT SUM(vlrdespesa)soma FROM despesa;";
             pstm = connection.prepareStatement(sql);    
             resultSet = pstm.executeQuery();
             resultSet.next();
-            receita=resultSet.getDouble("soma");
+            despesa=resultSet.getDouble("soma");
 
         } catch (SQLException erro) {            
             JOptionPane.showMessageDialog(null,"Erro de Leitura do Banco"+erro,
@@ -232,8 +217,19 @@ public class Receita {
         finally{
             Conexao.closeConnection(connection, pstm, resultSet);
         }
-        return receita;
+        return despesa;        
     }
+
+    @Override
+    public String toString() {
+        return "Despesa{" + "idConta=" + idConta 
+                + ", dataPagto=" + dataPagto 
+                + ", tipoDespesa=" + tipoDespesa 
+                + ", dataPagtoEsperado=" + dataPagtoEsperado 
+                + ", vlrDespesa=" + vlrDespesa + '}';
+    }
+
+
     
     
 }

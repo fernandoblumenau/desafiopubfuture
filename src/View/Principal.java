@@ -4,13 +4,14 @@
  */
 package View;
 
-import pubfuture.Conta;
-import pubfuture.Despesa;
-import pubfuture.Receita;
+import Model.Conta;
+import Model.Despesa;
+import Model.Receita;
 
 /**
  *
- * @author ferna
+ * @author Fernando Marcos Rodrigues
+ * Tela Principal
  */
 public class Principal extends javax.swing.JFrame {
 
@@ -198,7 +199,7 @@ public class Principal extends javax.swing.JFrame {
 
     private void jButtonTelaDespesasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonTelaDespesasActionPerformed
         try {
-            cadastroDespesa telaDespesa = new cadastroDespesa();
+            CadastroDespesa telaDespesa = new CadastroDespesa();
             telaDespesa.setVisible(true);
         } catch (Exception e) {
              e.printStackTrace();

@@ -2,10 +2,10 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package pubfuture;
+package Model;
 
 import java.sql.Connection;
-import utils.Conexao;
+import Controller.Conexao;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -16,6 +16,7 @@ import java.sql.ResultSet;
 /**
  *
  * @author Fernando Marcos Rodrigues
+ * Classe Java Com todos os metodos da entidade Conta
  */
 public class Conta {
     
@@ -58,7 +59,7 @@ public class Conta {
     
  /**
  *
- * Metodos para classe Conta
+ * Inicio da Declaração dos Metodos
  */
 
     public void cadastrarConta(Conta conta) {
@@ -80,8 +81,7 @@ public class Conta {
             
             pstm.execute();
             JOptionPane.showMessageDialog(null, "Conta Criada",
-                    "Informação Sistema",JOptionPane.INFORMATION_MESSAGE);            
-            
+                    "Informação Sistema",JOptionPane.INFORMATION_MESSAGE);                        
         } catch (SQLException erro) {
             
             JOptionPane.showMessageDialog(null,"Erro ao inserir conta no banco",
@@ -108,14 +108,9 @@ public class Conta {
             pstm.setString(2, this.instFinanceira);
             pstm.setDouble(3, this.getVlrSaldo());
             pstm.setInt(4, this.getIdConta());
-            
-            System.out.println(pstm);
-            
-            //pstm.execute();
+            pstm.execute();
             JOptionPane.showMessageDialog(null, "Alterado com Sucesso",
                     "Informação Sistema",JOptionPane.INFORMATION_MESSAGE);            
-                    
-               
         } catch (SQLException erro) {
             
             JOptionPane.showMessageDialog(null,"Erro ao alterar dados de conta"
@@ -178,7 +173,6 @@ public class Conta {
             Conexao.closeConnection(connection, pstm, resultSet);
         }
         return contas;
-        // TODO implement here
     }
 
     public void transferirSaldo() {
@@ -206,9 +200,6 @@ public class Conta {
             Conexao.closeConnection(connection, pstm, resultSet);
         }
         return contas;
-        
-        
-        
     }
 
     @Override

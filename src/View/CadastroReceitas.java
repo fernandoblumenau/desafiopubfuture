@@ -7,12 +7,13 @@ package View;
 import java.sql.Date;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
-import pubfuture.Despesa;
-import pubfuture.Receita;
+import Model.Despesa;
+import Model.Receita;
 
 /**
  *
- * @author ferna
+ * @author Fernando Marcos Rodrigues
+ * Tela Edição de Receitas
  */
 public class CadastroReceitas extends javax.swing.JFrame {
 
@@ -86,13 +87,12 @@ public class CadastroReceitas extends javax.swing.JFrame {
         jLabelIdConta.setEnabled(true);
         jLabelTipoReceita.setEnabled(true);
         jLabelVlrReceita.setEnabled(true); 
-
     }   
     
     private void CarregarTabela(){
         
-        DefaultTableModel tabela = (DefaultTableModel) jTableReceitas.getModel();
-        tabela.setNumRows(0);
+       DefaultTableModel tabela = (DefaultTableModel) jTableReceitas.getModel();
+       tabela.setNumRows(0);
       
        Receita receitas = new Receita();
         
@@ -349,8 +349,7 @@ public class CadastroReceitas extends javax.swing.JFrame {
         CarregarTabela();
         LimparjTextField();
         DesabilitarJTextField();
-        DesabilitarJbuttom();
-        
+        DesabilitarJbuttom();        
     }//GEN-LAST:event_jButtonExcluirReceitaActionPerformed
 
     private void jButtonAtualizarReceitaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAtualizarReceitaActionPerformed
@@ -369,8 +368,7 @@ public class CadastroReceitas extends javax.swing.JFrame {
         CarregarTabela();
         LimparjTextField();
         DesabilitarJTextField();
-        DesabilitarJbuttom();
-        
+        DesabilitarJbuttom();        
     }//GEN-LAST:event_jButtonAtualizarReceitaActionPerformed
 
     private void jTableReceitasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableReceitasMouseClicked
@@ -383,16 +381,13 @@ public class CadastroReceitas extends javax.swing.JFrame {
         jTextFieldsDataRecebimentoEsperado.setText(String.valueOf(receitas.getDataRecebEsperado()));
         jTextFieldDescricaoReceita.setText(receitas.getDescReceita());
         jTextFieldVlrValor.setText(String.valueOf(receitas.getVlrReceita()));
-   
-        
+           
         jButtonCadastrarReceita.setEnabled(false);
         jButtonAtualizarReceita.setEnabled(true);
         jButtonExcluirReceita.setEnabled(true);
         HabilitarJTextField();
         jLabelIdConta.setEnabled(false);
         jTextFieldIdConta.setEnabled(false);    
-        
-        
     }//GEN-LAST:event_jTableReceitasMouseClicked
 
     private void jButtonHomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonHomeActionPerformed
@@ -406,9 +401,6 @@ public class CadastroReceitas extends javax.swing.JFrame {
         finally{
         dispose();
         }
-       
-   
-        
     }//GEN-LAST:event_jButtonHomeActionPerformed
 
     /**
