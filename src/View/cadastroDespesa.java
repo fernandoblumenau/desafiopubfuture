@@ -28,6 +28,7 @@ public class cadastroDespesa extends javax.swing.JFrame {
         CarregarTabela();
         DesabilitarJbuttom();
         DesabilitarJTextField();
+        LimparjTextField();
         
 
     }
@@ -59,6 +60,7 @@ public class cadastroDespesa extends javax.swing.JFrame {
         jTextFieldValor = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTableDespesas = new javax.swing.JTable();
+        jLabelInstrucao = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -98,12 +100,17 @@ public class cadastroDespesa extends javax.swing.JFrame {
 
         jButtonHome.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/home.png"))); // NOI18N
         jButtonHome.setText("Home");
+        jButtonHome.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonHomeActionPerformed(evt);
+            }
+        });
 
         jLabelIdConta.setText("Ad Conta");
 
-        jLabelDataPagamento.setText("Data Pagamento");
+        jLabelDataPagamento.setText("Pagamento");
 
-        jLabelDataPagamentoEsperado.setText("Data Pagamento Esperado");
+        jLabelDataPagamentoEsperado.setText("Pgto Esperado");
 
         jLabelTipoDespesa.setText("Tipo Despesa");
 
@@ -139,6 +146,9 @@ public class cadastroDespesa extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(jTableDespesas);
 
+        jLabelInstrucao.setForeground(new java.awt.Color(255, 51, 51));
+        jLabelInstrucao.setText("*Selecione na tabela abaixo a Despesa para Exclusão ou Alteração");
+
         javax.swing.GroupLayout jPanelBaseLayout = new javax.swing.GroupLayout(jPanelBase);
         jPanelBase.setLayout(jPanelBaseLayout);
         jPanelBaseLayout.setHorizontalGroup(
@@ -146,42 +156,39 @@ public class cadastroDespesa extends javax.swing.JFrame {
             .addGroup(jPanelBaseLayout.createSequentialGroup()
                 .addGap(22, 22, 22)
                 .addGroup(jPanelBaseLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 452, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(jPanelBaseLayout.createSequentialGroup()
-                        .addGroup(jPanelBaseLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanelBaseLayout.createSequentialGroup()
+                    .addComponent(jLabelInstrucao)
+                    .addGroup(jPanelBaseLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(jScrollPane1)
+                        .addGroup(jPanelBaseLayout.createSequentialGroup()
+                            .addGroup(jPanelBaseLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                 .addComponent(jButtonNovaDespesa)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jButtonCadastrarDespesas))
-                            .addGroup(jPanelBaseLayout.createSequentialGroup()
                                 .addComponent(jLabelIdConta)
-                                .addGap(35, 35, 35)
+                                .addComponent(jTextFieldIdConta, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGap(22, 22, 22)
+                            .addGroup(jPanelBaseLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(jPanelBaseLayout.createSequentialGroup()
+                                    .addGroup(jPanelBaseLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(jButtonCadastrarDespesas)
+                                        .addComponent(jTextFieldDataPagamento, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGap(18, 18, 18)
+                                    .addGroup(jPanelBaseLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(jButtonExcluirDespesas)
+                                        .addComponent(jLabelDataPagamentoEsperado)
+                                        .addComponent(jTextFieldDataPagamentoEsperado, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)))
                                 .addComponent(jLabelDataPagamento))
-                            .addGroup(jPanelBaseLayout.createSequentialGroup()
-                                .addComponent(jTextFieldIdConta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(jTextFieldDataPagamento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(jPanelBaseLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanelBaseLayout.createSequentialGroup()
-                                .addComponent(jButtonExcluirDespesas)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jButtonAtualizarDespesas)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jButtonHome))
-                            .addGroup(jPanelBaseLayout.createSequentialGroup()
-                                .addGroup(jPanelBaseLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabelDataPagamentoEsperado)
-                                    .addComponent(jTextFieldDataPagamentoEsperado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(18, 18, 18)
-                                .addGroup(jPanelBaseLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabelTipoDespesa)
-                                    .addComponent(jTextFieldTipoDespesa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(38, 38, 38)
-                                .addGroup(jPanelBaseLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jTextFieldValor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabelvalor))))))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addGap(18, 18, 18)
+                            .addGroup(jPanelBaseLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jLabelTipoDespesa)
+                                .addGroup(jPanelBaseLayout.createSequentialGroup()
+                                    .addGroup(jPanelBaseLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                        .addComponent(jButtonAtualizarDespesas, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(jTextFieldTipoDespesa))
+                                    .addGap(18, 18, 18)
+                                    .addGroup(jPanelBaseLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(jTextFieldValor, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(jLabelvalor)
+                                        .addComponent(jButtonHome)))))))
+                .addContainerGap(19, Short.MAX_VALUE))
         );
         jPanelBaseLayout.setVerticalGroup(
             jPanelBaseLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -193,22 +200,25 @@ public class cadastroDespesa extends javax.swing.JFrame {
                     .addComponent(jButtonExcluirDespesas)
                     .addComponent(jButtonAtualizarDespesas)
                     .addComponent(jButtonHome))
-                .addGap(18, 18, 18)
+                .addGap(12, 12, 12)
                 .addGroup(jPanelBaseLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabelIdConta)
-                    .addComponent(jLabelDataPagamento)
                     .addComponent(jLabelDataPagamentoEsperado)
+                    .addComponent(jLabelIdConta)
+                    .addComponent(jLabelDataPagamento, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabelTipoDespesa)
                     .addComponent(jLabelvalor))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanelBaseLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextFieldIdConta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextFieldDataPagamento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jTextFieldDataPagamentoEsperado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jTextFieldDataPagamento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jTextFieldIdConta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jTextFieldTipoDespesa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jTextFieldValor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 275, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addComponent(jLabelInstrucao)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 10, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 275, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(30, 30, 30))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -226,35 +236,45 @@ public class cadastroDespesa extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButtonNovaDespesaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonNovaDespesaActionPerformed
-        
+    private void jTableDespesasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableDespesasMouseClicked
+
+        Despesa despesas = new Despesa();
+        Integer index = jTableDespesas.getSelectedRow();
+        despesas= despesas.listarDespesa().get(index);
+        jTextFieldIdConta.setText(String.valueOf(despesas.getIdConta()));
+        jTextFieldDataPagamento.setText(String.valueOf(despesas.getDataPagto()));
+        jTextFieldDataPagamentoEsperado.setText(String.valueOf(despesas.getDataPagtoEsperado()));
+        jTextFieldTipoDespesa.setText(despesas.getTipoDespesa());
+        jTextFieldValor.setText(String.valueOf(despesas.getVlrDespesa()));
+
+        jButtonCadastrarDespesas.setEnabled(false);
+        jButtonAtualizarDespesas.setEnabled(true);
+        jButtonExcluirDespesas.setEnabled(true);
         HabilitarJTextField();
-        DesabilitarJbuttom();
-        jButtonCadastrarDespesas.setEnabled(true);
-        LimparjTextField();        
-    }//GEN-LAST:event_jButtonNovaDespesaActionPerformed
+        jLabelIdConta.setEnabled(false);
+        jTextFieldIdConta.setEnabled(false);
+    }//GEN-LAST:event_jTableDespesasMouseClicked
 
     private void jTextFieldDataPagamentoEsperadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldDataPagamentoEsperadoActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextFieldDataPagamentoEsperadoActionPerformed
 
-    private void jButtonCadastrarDespesasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCadastrarDespesasActionPerformed
-               
-        Despesa despesa = new Despesa();
-        despesa.setIdConta(Integer.parseInt(jTextFieldIdConta.getText()));
-        despesa.setDataPagto(Date.valueOf(jTextFieldDataPagamento.getText()));
-        despesa.setDataPagtoEsperado(Date.valueOf(jTextFieldDataPagamentoEsperado.getText()));
-        despesa.setTipoDespesa(jTextFieldTipoDespesa.getText());
-        despesa.setVlrDespesa(Double.parseDouble(jTextFieldValor.getText()));
-        
-        despesa.cadastrarDespesa(despesa);
-        CarregarTabela();
-        LimparjTextField();
-    }//GEN-LAST:event_jButtonCadastrarDespesasActionPerformed
+    private void jButtonHomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonHomeActionPerformed
+        try {
+            Principal telaPrincipal = new Principal();
+            telaPrincipal.setVisible(true);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        finally{
+            dispose();
+        }
+
+    }//GEN-LAST:event_jButtonHomeActionPerformed
 
     private void jButtonAtualizarDespesasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAtualizarDespesasActionPerformed
-                    
-        Despesa despesas =new Despesa();        
+
+        Despesa despesas =new Despesa();
         Integer index = jTableDespesas.getSelectedRow();
         despesas = despesas.listarDespesa().get(index);
         despesas.setIdConta(Integer.parseInt(jTextFieldIdConta.getText()));
@@ -262,13 +282,46 @@ public class cadastroDespesa extends javax.swing.JFrame {
         despesas.setDataPagtoEsperado(Date.valueOf(jTextFieldDataPagamentoEsperado.getText()));
         despesas.setTipoDespesa(jTextFieldTipoDespesa.getText());
         despesas.setVlrDespesa(Double.parseDouble(jTextFieldValor.getText()));
- 
-        despesas.editarDespesa(despesas);        
+
+        despesas.editarDespesa(despesas);
         CarregarTabela();
         LimparjTextField();
         DesabilitarJTextField();
         DesabilitarJbuttom();
     }//GEN-LAST:event_jButtonAtualizarDespesasActionPerformed
+
+    private void jButtonExcluirDespesasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonExcluirDespesasActionPerformed
+        Despesa despesas =new Despesa();
+        Integer index = jTableDespesas.getSelectedRow();
+        despesas = despesas.listarDespesa().get(index);
+        despesas.removerDespesa(Integer.parseInt(jTextFieldIdConta.getText()));
+        CarregarTabela();
+        LimparjTextField();
+        DesabilitarJTextField();
+        DesabilitarJbuttom();
+    }//GEN-LAST:event_jButtonExcluirDespesasActionPerformed
+
+    private void jButtonCadastrarDespesasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCadastrarDespesasActionPerformed
+
+        Despesa despesa = new Despesa();
+        despesa.setIdConta(Integer.parseInt(jTextFieldIdConta.getText()));
+        despesa.setDataPagto(Date.valueOf(jTextFieldDataPagamento.getText()));
+        despesa.setDataPagtoEsperado(Date.valueOf(jTextFieldDataPagamentoEsperado.getText()));
+        despesa.setTipoDespesa(jTextFieldTipoDespesa.getText());
+        despesa.setVlrDespesa(Double.parseDouble(jTextFieldValor.getText()));
+
+        despesa.cadastrarDespesa(despesa);
+        CarregarTabela();
+        LimparjTextField();
+    }//GEN-LAST:event_jButtonCadastrarDespesasActionPerformed
+
+    private void jButtonNovaDespesaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonNovaDespesaActionPerformed
+
+        HabilitarJTextField();
+        DesabilitarJbuttom();
+        jButtonCadastrarDespesas.setEnabled(true);
+        LimparjTextField();
+    }//GEN-LAST:event_jButtonNovaDespesaActionPerformed
 
     private void LimparjTextField(){
         
@@ -279,38 +332,6 @@ public class cadastroDespesa extends javax.swing.JFrame {
         jTextFieldValor.setText("");
     }
     
-    private void jTableDespesasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableDespesasMouseClicked
-        
-        Despesa despesas = new Despesa();
-        Integer index = jTableDespesas.getSelectedRow();
-        despesas= despesas.listarDespesa().get(index);
-        jTextFieldIdConta.setText(String.valueOf(despesas.getIdConta()));
-        jTextFieldDataPagamento.setText(String.valueOf(despesas.getDataPagto()));
-        jTextFieldDataPagamentoEsperado.setText(String.valueOf(despesas.getDataPagtoEsperado()));
-        jTextFieldTipoDespesa.setText(despesas.getTipoDespesa());
-        jTextFieldValor.setText(String.valueOf(despesas.getVlrDespesa()));
-   
-        
-        jButtonCadastrarDespesas.setEnabled(false);
-        jButtonAtualizarDespesas.setEnabled(true);
-        jButtonExcluirDespesas.setEnabled(true);
-        HabilitarJTextField();
-        jLabelIdConta.setEnabled(false);
-        jTextFieldIdConta.setEnabled(false);       
-
-    }//GEN-LAST:event_jTableDespesasMouseClicked
-
-    private void jButtonExcluirDespesasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonExcluirDespesasActionPerformed
-        Despesa despesas =new Despesa();        
-        Integer index = jTableDespesas.getSelectedRow();
-        despesas = despesas.listarDespesa().get(index);
-        despesas.removerDespesa(Integer.parseInt(jTextFieldIdConta.getText()));
-        CarregarTabela();
-        LimparjTextField();
-        DesabilitarJTextField();
-        DesabilitarJbuttom();
-    }//GEN-LAST:event_jButtonExcluirDespesasActionPerformed
-
     private void CarregarTabela(){
         
         DefaultTableModel tabela = (DefaultTableModel) jTableDespesas.getModel();
@@ -422,6 +443,7 @@ public class cadastroDespesa extends javax.swing.JFrame {
     private javax.swing.JLabel jLabelDataPagamento;
     private javax.swing.JLabel jLabelDataPagamentoEsperado;
     private javax.swing.JLabel jLabelIdConta;
+    private javax.swing.JLabel jLabelInstrucao;
     private javax.swing.JLabel jLabelTipoDespesa;
     private javax.swing.JLabel jLabelvalor;
     private javax.swing.JPanel jPanelBase;

@@ -5,6 +5,7 @@
 package pubfuture;
 
 import View.CadastroConta;
+import View.Principal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,11 +21,12 @@ public class PubFuture {
     public static void main(String[] args) {
        
         try {
-            CadastroConta telaCadastro = new CadastroConta();
-            telaCadastro.setVisible(true);
+            Principal telaPrincipal = new Principal();
+            telaPrincipal.setVisible(true);
         } catch (Exception e) {
              e.printStackTrace();
         }       
         
+
     }
 }

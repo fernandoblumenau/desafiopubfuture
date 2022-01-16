@@ -4,6 +4,12 @@
  */
 package View;
 
+import java.sql.Date;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+import pubfuture.Despesa;
+import pubfuture.Receita;
+
 /**
  *
  * @author ferna
@@ -15,9 +21,10 @@ public class CadastroReceitas extends javax.swing.JFrame {
      */
     public CadastroReceitas() {
         initComponents();
-        //CarregarTabela();
+        CarregarTabela();
         DesabilitarJbuttom();
         DesabilitarJTextField();
+        LimparjTextField();
     }
 
     /**
@@ -80,7 +87,32 @@ public class CadastroReceitas extends javax.swing.JFrame {
         jLabelTipoReceita.setEnabled(true);
         jLabelVlrReceita.setEnabled(true); 
 
+    }   
+    
+    private void CarregarTabela(){
+        
+        DefaultTableModel tabela = (DefaultTableModel) jTableReceitas.getModel();
+        tabela.setNumRows(0);
+      
+       Receita receitas = new Receita();
+        
+        try {
+            for(Receita r: receitas.listarReceita()){
+                tabela.addRow(new Object[]{
+                    r.getIdConta(),
+                    r.getTipoReceita(),
+                    r.getDataRecebimento(),
+                    r.getDataRecebEsperado(),
+                    r.getDescReceita(),
+                    r.getVlrReceita()
+                });
+            }                            
+        } catch (Exception erro) {            
+            JOptionPane.showMessageDialog(null,"Erro ao Carregar tabela"+erro,
+                    "Erro",JOptionPane.ERROR_MESSAGE); 
+        }  
     }    
+    
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
@@ -104,8 +136,10 @@ public class CadastroReceitas extends javax.swing.JFrame {
         jTextFieldVlrValor = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTableReceitas = new javax.swing.JTable();
+        jLabelInstrucao = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
 
         jPanelBase.setBorder(javax.swing.BorderFactory.createTitledBorder("Edição / Criação de Receitas"));
 
@@ -119,15 +153,35 @@ public class CadastroReceitas extends javax.swing.JFrame {
 
         jButtonCadastrarReceita.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/salvar.png"))); // NOI18N
         jButtonCadastrarReceita.setText("Salvar");
+        jButtonCadastrarReceita.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonCadastrarReceitaActionPerformed(evt);
+            }
+        });
 
         jButtonExcluirReceita.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/excluir.png"))); // NOI18N
         jButtonExcluirReceita.setText("Excluir");
+        jButtonExcluirReceita.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonExcluirReceitaActionPerformed(evt);
+            }
+        });
 
         jButtonAtualizarReceita.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/atualizar.png"))); // NOI18N
         jButtonAtualizarReceita.setText("Atualizar");
+        jButtonAtualizarReceita.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonAtualizarReceitaActionPerformed(evt);
+            }
+        });
 
         jButtonHome.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/home.png"))); // NOI18N
         jButtonHome.setText("Home");
+        jButtonHome.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonHomeActionPerformed(evt);
+            }
+        });
 
         jLabelIdConta.setText("Id Conta");
 
@@ -161,7 +215,15 @@ public class CadastroReceitas extends javax.swing.JFrame {
                 "Id Conta", "Tipo", "Recebimento", "Rec Esperado", "Descrição", "Valor"
             }
         ));
+        jTableReceitas.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTableReceitasMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(jTableReceitas);
+
+        jLabelInstrucao.setForeground(new java.awt.Color(255, 0, 51));
+        jLabelInstrucao.setText("*Selecione na tabela abaixo a conta para Exclusão ou Alteração");
 
         javax.swing.GroupLayout jPanelBaseLayout = new javax.swing.GroupLayout(jPanelBase);
         jPanelBase.setLayout(jPanelBaseLayout);
@@ -175,31 +237,36 @@ public class CadastroReceitas extends javax.swing.JFrame {
                         .addGroup(jPanelBaseLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jButtonNovo)
                             .addComponent(jLabelIdConta)
-                            .addComponent(jTextFieldIdConta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jTextFieldIdConta, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
-                        .addGroup(jPanelBaseLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jButtonCadastrarReceita)
+                        .addGroup(jPanelBaseLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jButtonCadastrarReceita, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jLabelTipoReceita)
-                            .addComponent(jTextFieldTipoReceita, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jTextFieldTipoReceita))
                         .addGap(18, 18, 18)
-                        .addGroup(jPanelBaseLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jButtonExcluirReceita)
+                        .addGroup(jPanelBaseLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jButtonExcluirReceita, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jLabelDataRecebimento)
-                            .addComponent(jTextFieldDataRecebimento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jTextFieldDataRecebimento))
                         .addGap(18, 18, 18)
-                        .addGroup(jPanelBaseLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jButtonAtualizarReceita)
+                        .addGroup(jPanelBaseLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jButtonAtualizarReceita, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jLabelDataRecebimentoEsperado)
-                            .addComponent(jTextFieldsDataRecebimentoEsperado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jTextFieldsDataRecebimentoEsperado))
                         .addGap(18, 18, 18)
-                        .addGroup(jPanelBaseLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(jPanelBaseLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jLabelDescricaoReceita)
-                            .addComponent(jTextFieldDescricaoReceita, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jButtonHome))
+                            .addComponent(jButtonHome, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jTextFieldDescricaoReceita))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 55, Short.MAX_VALUE)
-                        .addGroup(jPanelBaseLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabelVlrReceita)
-                            .addComponent(jTextFieldVlrValor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addGroup(jPanelBaseLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addGroup(jPanelBaseLayout.createSequentialGroup()
+                                .addComponent(jLabelVlrReceita)
+                                .addGap(36, 36, 36))
+                            .addComponent(jTextFieldVlrValor)))
+                    .addGroup(jPanelBaseLayout.createSequentialGroup()
+                        .addComponent(jLabelInstrucao)
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         jPanelBaseLayout.setVerticalGroup(
@@ -228,9 +295,11 @@ public class CadastroReceitas extends javax.swing.JFrame {
                     .addComponent(jTextFieldsDataRecebimentoEsperado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jTextFieldDescricaoReceita, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jTextFieldVlrValor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
+                .addComponent(jLabelInstrucao)
+                .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 275, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addContainerGap(30, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -241,10 +310,13 @@ public class CadastroReceitas extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanelBase, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jPanelBase, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButtonNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonNovoActionPerformed
@@ -253,6 +325,91 @@ public class CadastroReceitas extends javax.swing.JFrame {
         jButtonCadastrarReceita.setEnabled(true);
         LimparjTextField();
     }//GEN-LAST:event_jButtonNovoActionPerformed
+
+    private void jButtonCadastrarReceitaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCadastrarReceitaActionPerformed
+               
+        Receita receitas = new Receita();
+        receitas.setIdConta(Integer.parseInt(jTextFieldIdConta.getText()));
+        receitas.setDataRecebEsperado(Date.valueOf(jTextFieldDataRecebimento.getText())); 
+        receitas.setDataRecebimento(Date.valueOf(jTextFieldDataRecebimento.getText())); 
+        receitas.setTipoReceita(jTextFieldTipoReceita.getText());
+        receitas.setDescReceita(jTextFieldDescricaoReceita.getText());        
+        receitas.setVlrReceita(Double.parseDouble(jTextFieldVlrValor.getText()));
+        
+        receitas.cadastrarReceita(receitas);
+        CarregarTabela();
+        LimparjTextField();
+    }//GEN-LAST:event_jButtonCadastrarReceitaActionPerformed
+
+    private void jButtonExcluirReceitaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonExcluirReceitaActionPerformed
+        Receita receitas =new Receita();        
+        Integer index = jTableReceitas.getSelectedRow();
+        receitas = receitas.listarReceita().get(index);
+        receitas.removerReceita(Integer.parseInt(jTextFieldIdConta.getText()));
+        CarregarTabela();
+        LimparjTextField();
+        DesabilitarJTextField();
+        DesabilitarJbuttom();
+        
+    }//GEN-LAST:event_jButtonExcluirReceitaActionPerformed
+
+    private void jButtonAtualizarReceitaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAtualizarReceitaActionPerformed
+        
+        Receita receitas =new Receita();        
+        Integer index = jTableReceitas.getSelectedRow();
+        receitas = receitas.listarReceita().get(index);
+        receitas.setIdConta(Integer.parseInt(jTextFieldIdConta.getText()));
+        receitas.setTipoReceita(jTextFieldTipoReceita.getText());    
+        receitas.setDataRecebimento(Date.valueOf(jTextFieldDataRecebimento.getText()));
+        receitas.setDataRecebEsperado(Date.valueOf(jTextFieldsDataRecebimentoEsperado.getText()));
+        receitas.setDescReceita(jTextFieldDescricaoReceita.getText());          
+        receitas.setVlrReceita(Double.parseDouble(jTextFieldVlrValor.getText()));
+ 
+        receitas.editarReceita(receitas);        
+        CarregarTabela();
+        LimparjTextField();
+        DesabilitarJTextField();
+        DesabilitarJbuttom();
+        
+    }//GEN-LAST:event_jButtonAtualizarReceitaActionPerformed
+
+    private void jTableReceitasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableReceitasMouseClicked
+        Receita receitas = new Receita();
+        Integer index = jTableReceitas.getSelectedRow();
+        receitas= receitas.listarReceita().get(index);
+        jTextFieldIdConta.setText(String.valueOf(receitas.getIdConta()));
+        jTextFieldTipoReceita.setText(receitas.getTipoReceita());
+        jTextFieldDataRecebimento.setText(String.valueOf(receitas.getDataRecebimento()));
+        jTextFieldsDataRecebimentoEsperado.setText(String.valueOf(receitas.getDataRecebEsperado()));
+        jTextFieldDescricaoReceita.setText(receitas.getDescReceita());
+        jTextFieldVlrValor.setText(String.valueOf(receitas.getVlrReceita()));
+   
+        
+        jButtonCadastrarReceita.setEnabled(false);
+        jButtonAtualizarReceita.setEnabled(true);
+        jButtonExcluirReceita.setEnabled(true);
+        HabilitarJTextField();
+        jLabelIdConta.setEnabled(false);
+        jTextFieldIdConta.setEnabled(false);    
+        
+        
+    }//GEN-LAST:event_jTableReceitasMouseClicked
+
+    private void jButtonHomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonHomeActionPerformed
+
+        try {
+            Principal telaPrincipal = new Principal();
+            telaPrincipal.setVisible(true);
+        } catch (Exception e) {
+             e.printStackTrace();
+        } 
+        finally{
+        dispose();
+        }
+       
+   
+        
+    }//GEN-LAST:event_jButtonHomeActionPerformed
 
     /**
      * @param args the command line arguments
@@ -299,6 +456,7 @@ public class CadastroReceitas extends javax.swing.JFrame {
     private javax.swing.JLabel jLabelDataRecebimentoEsperado;
     private javax.swing.JLabel jLabelDescricaoReceita;
     private javax.swing.JLabel jLabelIdConta;
+    private javax.swing.JLabel jLabelInstrucao;
     private javax.swing.JLabel jLabelTipoReceita;
     private javax.swing.JLabel jLabelVlrReceita;
     private javax.swing.JPanel jPanelBase;

@@ -23,7 +23,6 @@ public class Receita {
     private int idConta;
     private String tipoReceita;
     private Date dataRecebimento;
-    private String descTipoReceita;
     private Date dataRecebEsperado;
     private Double vlrReceita;
     private String descReceita;
@@ -53,13 +52,6 @@ public class Receita {
         this.dataRecebimento = dataRecebimento;
     }
 
-    public String getDescTipoReceita() {
-        return descTipoReceita;
-    }
-
-    public void setDescTipoReceita(String descTipoReceita) {
-        this.descTipoReceita = descTipoReceita;
-    }
 
     public Date getDataRecebEsperado() {
         return dataRecebEsperado;
@@ -134,14 +126,15 @@ public class Receita {
             String sql = "UPDATE receita SET "
                     + "tiporeceita=?,"
                     + "datarecebimento=?," 
-                    + "datarecebimento=?,"                    
+                    + "datarecebesperado=?,"                    
                     + "descreceita=?,"
                     + "vlrreceita=?"
                     + "WHERE idconta = ?";
             pstm = connection.prepareStatement(sql);
             
-            System.out.println(sql);
-             pstm.setString(1, this.tipoReceita);
+            System.out.println(this.descReceita);
+            
+            pstm.setString(1, this.tipoReceita);
             pstm.setDate(2, this.dataRecebimento);
             pstm.setDate(3, this.dataRecebEsperado);
             pstm.setString(4, this.descReceita);
@@ -193,7 +186,7 @@ public class Receita {
         ResultSet resultSet = null;
         
         try {
-            String sql = "SELECT *FROM despesa;";
+            String sql = "SELECT *FROM receita;";
             pstm = connection.prepareStatement(sql);    
             resultSet = pstm.executeQuery();
             
@@ -219,8 +212,27 @@ public class Receita {
  
     }
 
-    public void listarReceitaTotal() {
-        // TODO implement here
+    public Double listarReceitaTotal() {
+        Double receita=0d;
+        Connection  connection = Conexao.conectar();
+        PreparedStatement  pstm =null;
+        ResultSet resultSet = null;
+        
+        try {
+            String sql = "SELECT SUM(vlrreceita)soma FROM receita;";
+            pstm = connection.prepareStatement(sql);    
+            resultSet = pstm.executeQuery();
+            resultSet.next();
+            receita=resultSet.getDouble("soma");
+
+        } catch (SQLException erro) {            
+            JOptionPane.showMessageDialog(null,"Erro de Leitura do Banco"+erro,
+                    "Erro",JOptionPane.ERROR_MESSAGE); 
+        }  
+        finally{
+            Conexao.closeConnection(connection, pstm, resultSet);
+        }
+        return receita;
     }
     
     

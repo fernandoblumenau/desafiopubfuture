@@ -185,8 +185,30 @@ public class Conta {
         // TODO implement here
     }
 
-    public void listarSaldo() {
-        // TODO implement here
+    public Double listarSaldo() {
+        Double contas=0d;
+        Connection  connection = Conexao.conectar();
+        PreparedStatement  pstm =null;
+        ResultSet resultSet = null;
+        
+        try {
+            String sql = "SELECT SUM(vlrsaldo)soma FROM conta;";
+            pstm = connection.prepareStatement(sql);    
+            resultSet = pstm.executeQuery();
+            resultSet.next();
+            contas=resultSet.getDouble("soma");
+
+        } catch (SQLException erro) {            
+            JOptionPane.showMessageDialog(null,"Erro de Leitura do Banco"+erro,
+                    "Erro",JOptionPane.ERROR_MESSAGE); 
+        }  
+        finally{
+            Conexao.closeConnection(connection, pstm, resultSet);
+        }
+        return contas;
+        
+        
+        
     }
 
     @Override

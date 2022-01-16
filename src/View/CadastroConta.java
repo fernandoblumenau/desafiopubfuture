@@ -29,6 +29,7 @@ public class CadastroConta extends javax.swing.JFrame {
         CarregarTabela();
         DesabilitarJbuttom();
         DesabilitarJTextField();
+        LimparjTextField();
     }
 
     /**
@@ -130,11 +131,17 @@ public class CadastroConta extends javax.swing.JFrame {
         });
         jScrollPaneContas.setViewportView(jTableContas);
 
+        jLabel1.setForeground(new java.awt.Color(255, 0, 51));
         jLabel1.setText("*Selecione na tabela abaixo a conta para Exclusão ou Alteração");
 
         jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/home.png"))); // NOI18N
         jButton1.setText("Home");
         jButton1.setActionCommand("Inicio");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanelBaseLayout = new javax.swing.GroupLayout(jPanelBase);
         jPanelBase.setLayout(jPanelBaseLayout);
@@ -145,37 +152,37 @@ public class CadastroConta extends javax.swing.JFrame {
                 .addGroup(jPanelBaseLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanelBaseLayout.createSequentialGroup()
                         .addGroup(jPanelBaseLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel1)
                             .addGroup(jPanelBaseLayout.createSequentialGroup()
-                                .addGroup(jPanelBaseLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jTextFieldIdConta, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabelIdConta))
+                                .addComponent(jTextFieldIdConta, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
-                                .addGroup(jPanelBaseLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabelTipoConta)
-                                    .addComponent(jTextFieldTipoConta, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(jTextFieldTipoConta, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
                                 .addGroup(jPanelBaseLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jTextFieldInstFinanceira, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(jLabelInstFinanceira))
                                 .addGap(18, 18, 18)
                                 .addGroup(jPanelBaseLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jTextFieldVlrSaldo, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabelVlrSaldo)))
-                            .addComponent(jLabel1))
+                                    .addComponent(jLabelVlrSaldo)
+                                    .addComponent(jTextFieldVlrSaldo, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE))))
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(jPanelBaseLayout.createSequentialGroup()
                         .addGroup(jPanelBaseLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jScrollPaneContas, javax.swing.GroupLayout.PREFERRED_SIZE, 592, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(jPanelBaseLayout.createSequentialGroup()
-                                .addComponent(jButtonNovaConta)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jButtonCadastrarConta)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addGroup(jPanelBaseLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jButtonNovaConta)
+                                    .addComponent(jLabelIdConta))
+                                .addGap(18, 18, 18)
+                                .addGroup(jPanelBaseLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jButtonCadastrarConta)
+                                    .addComponent(jLabelTipoConta))
+                                .addGap(18, 18, 18)
                                 .addComponent(jButtonExcluirContas)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addGap(18, 18, 18)
                                 .addComponent(jButtonAtualizarContas)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jButton1))
-                            .addComponent(jScrollPaneContas, javax.swing.GroupLayout.PREFERRED_SIZE, 592, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(18, 18, 18)
+                                .addComponent(jButton1)))
                         .addGap(0, 8, Short.MAX_VALUE))))
         );
         jPanelBaseLayout.setVerticalGroup(
@@ -189,11 +196,11 @@ public class CadastroConta extends javax.swing.JFrame {
                     .addComponent(jButton1))
                 .addGap(18, 18, 18)
                 .addGroup(jPanelBaseLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabelIdConta)
                     .addComponent(jLabelTipoConta)
+                    .addComponent(jLabelIdConta)
                     .addComponent(jLabelInstFinanceira)
                     .addComponent(jLabelVlrSaldo))
-                .addGap(1, 1, 1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanelBaseLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jTextFieldIdConta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jTextFieldTipoConta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -216,8 +223,6 @@ public class CadastroConta extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanelBase, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
-
-        jPanelBase.getAccessibleContext().setAccessibleName("Edição / Criação de Contas");
 
         pack();
         setLocationRelativeTo(null);
@@ -300,6 +305,19 @@ public class CadastroConta extends javax.swing.JFrame {
         LimparjTextField();
         
     }//GEN-LAST:event_jButtonNovaContaActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+
+        try {
+            Principal telaPrincipal = new Principal();
+            telaPrincipal.setVisible(true);
+        } catch (Exception e) {
+             e.printStackTrace();
+        } 
+        finally{
+        dispose();
+        }
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     private void LimparjTextField(){
         jTextFieldIdConta.setText("");

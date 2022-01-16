@@ -202,8 +202,28 @@ public class Despesa {
 
     }
 
-    public void listarDespesaTotal() {
-        // TODO implement here
+    public Double listarDespesaTotal() {
+        Double despesa=0d;
+        Connection  connection = Conexao.conectar();
+        PreparedStatement  pstm =null;
+        ResultSet resultSet = null;
+        
+        try {
+            String sql = "SELECT SUM(vlrdespesa)soma FROM despesa;";
+            pstm = connection.prepareStatement(sql);    
+            resultSet = pstm.executeQuery();
+            resultSet.next();
+            despesa=resultSet.getDouble("soma");
+
+        } catch (SQLException erro) {            
+            JOptionPane.showMessageDialog(null,"Erro de Leitura do Banco"+erro,
+                    "Erro",JOptionPane.ERROR_MESSAGE); 
+        }  
+        finally{
+            Conexao.closeConnection(connection, pstm, resultSet);
+        }
+        return despesa;
+        
     }
 
     @Override
